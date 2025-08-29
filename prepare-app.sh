@@ -1,6 +1,13 @@
 #!/bin/bash
 echo "Preparing app..."
-docker network create app-network 2>/dev/null || echo "Network app-network exists."
-docker volume create redis-data 2>/dev/null || echo "Volume redis-data exists."
-docker-compose build
-echo "Preparation done."
+
+# Build Flask image
+docker build -t flask_app ./app
+
+# Create Docker volume for Redis
+docker volume create redis_data
+
+# Create Docker network
+docker network create app_network
+
+echo "Preparation complete."
